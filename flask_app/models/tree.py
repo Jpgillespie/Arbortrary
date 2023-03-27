@@ -69,7 +69,7 @@ class Tree:
             COUNT(v.users_id) AS num_visitors
             FROM trees t
             JOIN users u ON t.users_id = u.id
-            LEFT JOIN Visitors v ON t.id = v.trees_id
+            LEFT JOIN visitors v ON t.id = v.trees_id
             WHERE t.id = %(id)s
             GROUP BY t.id;
         """
@@ -111,7 +111,7 @@ class Tree:
             COUNT(v.users_id) AS num_visitors
             FROM trees t
             JOIN users u ON t.users_id = u.id
-            LEFT JOIN Visitors v ON t.id = v.trees_id
+            LEFT JOIN visitors v ON t.id = v.trees_id
             GROUP BY t.id;
         """
         results = ConnectToMySQL('trees_schema').query_db(query, {"id": id})
