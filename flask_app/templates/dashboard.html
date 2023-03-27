@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-5">Welcome, {{ user.first_name }}!</h1>
+  <a href="/new/tree" class="btn btn-primary mb-3">Plant A Tree</a>
+  <table class="table table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Species</th>
+        <th scope="col">Planted By</th>
+        <th scope="col">Number of Visitors</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tree in trees %}
+      <tr>
+        <td>{{ tree.species }}</td>
+        <td>{{ tree.planted_by.first_name }} {{ tree.planted_by.last_name }}</td>
+        <td>{{ tree.num_visitors }}</td>
+        <td>
+          <a href="/show/{{ tree.id }}" class="btn btn-sm btn-outline-primary" target="_blank">Details</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

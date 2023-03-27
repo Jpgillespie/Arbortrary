@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}My Trees{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-5">Manage My Trees!</h1>
+  <table class="table table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Species</th>
+        <th scope="col">Date Planted</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tree in trees %}
+      <tr>
+        <td>{{ tree.species }}</td>
+        <td>{{ tree.date_planted.strftime('%Y-%m-%d') }}</td>
+        <td>
+          <a href="/show/{{ tree.id }}" class="btn btn-sm btn-outline-primary" target="_blank">View</a>
+          <a href="/edit/{{tree.id}}" class="btn btn-sm btn-outline-secondary">Edit</a>
+          <form action="/delete/tree", method="POST">
+            <input type="hidden" name="redirect_url" value="/user/account">
+            <input type="hidden" name="id" value="{{ tree.id }}">
+            <input type="submit" class="btn btn-sm btn-outline-danger" value="Delete">
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

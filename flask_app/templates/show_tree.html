@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}View Tree{% endblock %}
+
+{% block content %}
+  <h1>{{ tree.name }}</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <p><strong>Location:</strong> {{ tree.location }}</p>
+      <p><strong>Reason:</strong> {{ tree.reason }}</p>
+      <p><strong>Date Planted:</strong> {{ tree.date_planted.strftime('%Y-%m-%d')}}</p>
+    </div>
+    <div class="col-md-6">
+        <h2>Visitors</h2>
+        <ul>
+            {% for visitor in visitors %}
+                <li>{{ visitor.first_name }} {{ visitor.last_name }}</li>
+            {% endfor %}
+        </ul>
+        {% if not is_visitor %}
+        <form method="post" action="/add_visitor">
+            <input type="hidden" name="tree_id" value="{{ tree.id }}">
+            <input type="submit" value="I visited this tree!">
+            
+        </form>
+        {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {% if tree  %}
+    Edit Tree
+  {% else %}
+    Create Tree
+  {% endif %}
+{% endblock %}
+{% block content %}
+
+<h1>{% if tree %}
+    Edit Tree
+    {% else %}
+    Create Tree
+    {% endif %}</h1>
+  <form method="POST" action="{% if tree %}/edit/{{tree.id}}{% else %}/new/tree{% endif %}">
+    {% if tree %}
+    <input type="hidden" name="id" value="{{tree.id}}">
+    {% endif %} 
+    <div class="form-group">
+      <label for="name">Location:</label>
+      <input type="text" class="form-control" id="location" name="location" value="{% if tree %}{{tree.location}}{% endif %}" required>
+    </div>
+    <div class="form-group">
+      <label for="name">Species</label>
+      <input type="text" class="form-control" id="species" name="species" value="{% if tree %}{{tree.species}}{% endif %}" required>
+    </div>
+    <div class="form-group">
+      <label for=reason">Reason:</label>
+      <textarea class="form-control" id="reason" name="reason" required>{% if tree %}{{tree.reason}}{% endif %}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="date_planted">Date Planted:</label>
+      <input type="date" class="form-control" id="date_planted" name="date_planted" value="{% if tree %}{{ tree.date_planted.strftime('%Y-%m-%d') }}{% endif %}" required>
+    </div>
+    <div class = "form-group">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+{% endblock %}
